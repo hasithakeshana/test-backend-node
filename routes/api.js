@@ -70,8 +70,8 @@ router.post('/signup',function(req,res,next){
           //  res.header("Access-Control-Allow-Methods" , "POST, GET, OPTIONS");
               
   
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).send(JSON.stringify({success:"A verification email has been sent to your email account" , code : 'reg', user : user} ));
+          //  res.setHeader('Content-Type', 'application/json');
+           // res.status(200).send(JSON.stringify({success:"A verification email has been sent to your email account" , code : 'reg', user : user} ));
             
             //new verification token is created for the new user
                   var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
