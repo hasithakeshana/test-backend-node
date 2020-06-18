@@ -81,8 +81,7 @@ router.post('/signup',function(req,res,next){
                     if (err) {
                       return res.status(500).send({ msg: err.message }); 
                     }
-                   // const senderMail = 'hasithakeshana9900@gmail.com'; // add sender email 
-                    // const password = '9812sliit'; 
+                   
   
                     //send the email
                     var transporter = nodemailer.createTransport({ service: 'gmail', port: 25, secure: false , auth: { user: process.env.EMAIL, pass: process.env.PASSWORD}, tls: { rejectUnauthorized: false } });                                          
@@ -758,12 +757,12 @@ router.post('/signupManager',function(req,res,next){
       
       User.create(managerData).then(function(manager){
 
-      res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      res.header("Access-Control-Allow-Methods" , "POST, GET, OPTIONS");
+     // res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+    //  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //  res.header("Access-Control-Allow-Methods" , "POST, GET, OPTIONS");
         
 
-      res.setHeader('Content-Type', 'application/json');
+     // res.setHeader('Content-Type', 'application/json');
       //res.status(200).send(JSON.stringify({success:"registerd successfully" , code : 'reg', user : user} ));
       
       //new verification token is created for the new user
@@ -776,8 +775,8 @@ router.post('/signupManager',function(req,res,next){
               }
 
               //send the email
-              var transporter = nodemailer.createTransport({ service: 'gmail', port: 25, secure: false , auth: { user: 'hasithakeshana9900@gmail.com', pass: '9812sliit' }, tls: { rejectUnauthorized: false } });                                          
-              var mailOptions = { from: 'hasithakeshana9900@gmail.com', 
+              var transporter = nodemailer.createTransport({ service: 'gmail', port: 25, secure: false , auth: { user:  process.env.EMAIL, pass:  process.env.PASSWORD }, tls: { rejectUnauthorized: false } });                                          
+              var mailOptions = { from:  process.env.EMAIL, 
                                   to: manager.email, 
                                   subject: 'Manager Account Verification', 
                                   text: 'Hello, \n\n' + 
@@ -909,8 +908,8 @@ router.post('/SMReg',function(req,res,next){
           //  res.header("Access-Control-Allow-Methods" , "POST, GET, OPTIONS");
               
   
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).send(JSON.stringify({success:"A verification email has been sent to your email account" , code : 'reg', user : user} ));
+           // res.setHeader('Content-Type', 'application/json');
+           // res.status(200).send(JSON.stringify({success:"A verification email has been sent to your email account" , code : 'reg', user : user} ));
             
             //new verification token is created for the new user
                   var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
@@ -973,7 +972,7 @@ router.post('/SMReg',function(req,res,next){
             //  res.header("Access-Control-Allow-Methods" , "POST, GET, OPTIONS");
                 
     
-              res.setHeader('Content-Type', 'application/json');
+             //  res.setHeader('Content-Type', 'application/json');
               res.status(200).send(JSON.stringify({success:"A verification email has been sent to your email account" , code : 'reg', user : user} ));
               
               //new verification token is created for the new user
