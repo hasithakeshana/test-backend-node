@@ -1003,6 +1003,42 @@ router.post('/SMReg',function(req,res,next){
     });
     
     });
+
+router.delete('/deletecartcompletely/:id', async (req, res) => {
+
+      try {
+          const response = await User.update({_id: req.params.id}, {
+              "$set" : {"cart":[]}
+          })
+          return res.json(response.data);
+      } catch (e) {
+          console.log(e)
+      }
   
+});
+
+
+router.patch('/deductStock/:id', async (req, res) => {
+
+  try {
+      if (req.body.size !== undefined) {
+
+          const id = req.params.id;
+          let color = req.body.color.toLowerCase();
+          let size = req.body.size.toLowerCase();
+          let quantity = req.body.quantity;
+          let size2 = size[0] + "Quantity";
+          const query = "quantity." + size2 + "." + color
+          let stock = quantity[size2][color] - 1;
+          const data = await Products.findOneAndUpdate({_id: req.params.id}, {"$set": {[query]: stock}})
+      }
+
+
+  } catch (e) {
+      console.log(e)
+  }
+});
+
+
 
 module.exports = router;
