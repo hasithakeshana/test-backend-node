@@ -81,10 +81,12 @@ router.post('/signup',function(req,res,next){
                     if (err) {
                       return res.status(500).send({ msg: err.message }); 
                     }
+                    const senderMail = 'hasithakeshana9900@gmail.com'; // add sender email 
+                    const password = '9812sliit'; 
   
                     //send the email
-                    var transporter = nodemailer.createTransport({ service: 'gmail', port: 25, secure: false , auth: { user: 'hasithakeshana9900@gmail.com', pass: '9812sliit' }, tls: { rejectUnauthorized: false } });                                          
-                    var mailOptions = { from: 'hasithakeshana9900@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello, \n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/confirmation\/' + token.token + '\/' +  user.email + '\n' }; 
+                    var transporter = nodemailer.createTransport({ service: 'gmail', port: 25, secure: false , auth: { user: senderMail, pass: password }, tls: { rejectUnauthorized: false } });                                          
+                    var mailOptions = { from: senderMail, to: user.email, subject: 'Account Verification Token', text: 'Hello, \n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/confirmation\/' + token.token + '\/' +  user.email + '\n' }; 
                     transporter.sendMail(mailOptions, function (err) {
                       if (err) { return res.status(500).send({ msg: err.message }); }
                       res.status(200).send(JSON.stringify({success:"A verification email has been sent to " + user.email , code : 'reg', user : user} ));
