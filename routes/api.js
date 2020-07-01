@@ -450,7 +450,8 @@ router.get('/items/:id', async (req, res, next) => {
         const user = req.body.username;
     
         const item = await Products.findOne({_id : req.params.id});
-    
+
+        console.log('test');
 
     
         //5ebcf2228739513778b72153
